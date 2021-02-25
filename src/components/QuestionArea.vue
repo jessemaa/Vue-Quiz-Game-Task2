@@ -20,13 +20,13 @@
             :disabled="selectedIndex === null || answered"
             class="md-raised"
         >
-        Submit
+        <font-awesome-icon icon="check-circle" />&nbsp;Submit
         </md-button>
         <md-button
             @click="next"
             class="md-raised"
         >
-        Next
+        <font-awesome-icon icon="arrow-circle-right" />&nbsp;Next
         </md-button>
     </div>
 </div>
