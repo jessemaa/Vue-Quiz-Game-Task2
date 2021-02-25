@@ -24,6 +24,7 @@
         </md-button>
         <md-button
             @click="next"
+            :disabled="!answered"
             class="md-raised"
         >
         <font-awesome-icon icon="arrow-circle-right" />&nbsp;Next
@@ -77,7 +78,6 @@ export default {
                 isCorrect = true
             }
             this.answered = true
-
             this.addPoints(isCorrect)
         }
     },
