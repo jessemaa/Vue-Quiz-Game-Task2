@@ -2,7 +2,7 @@
 <div>
     <h1>{{ questions.question }}</h1>
     <md-button
-        v-for="(answer, index) in answers" :key="index"
+        v-for="(answer, index) in shuffledAnswers" :key="index"
         @click="selectAnswer(index)"
         class="md-raised md-primary"
         :class="[selectedIndex === index ? 'selected' : '']"
@@ -11,7 +11,7 @@
     </md-button>
     <br/>
     <div>
-        <md-button class="md-raised">Submit</md-button>
+        <md-button @click="submit" class="md-raised">Submit</md-button>
         <md-button @click="next" class="md-raised">Next</md-button>
     </div>
 </div>
@@ -22,7 +22,8 @@ import _ from 'lodash'
 export default {
     props: {
         questions: Object,
-        next: Function
+        next: Function,
+        addPoints: Function
     },
     data() {
         return {
@@ -50,11 +51,19 @@ export default {
         shuffleAnswers() {
             let answers = [...this.questions.incorrect_answers, this.questions.correct_answer]
             this.shuffledAnswers = _.shuffle(answers)
-            console.log(this.shuffledAnswers)
+            this.correctIndex = this.shuffledAnswers.indexOf(this.questions.correct_answer)
+        },
+        submit() {
+            let isCorrect = false
+            if (this.selectedIndex === this.correctIndex) {
+                isCorrect = true
+            }
+
+            this.addPoints(isCorrect)
         }
     },
     mounted() {
-        this.shuffledAnswers()
+        this.shuffleAnswers()
     }
 }
 </script>

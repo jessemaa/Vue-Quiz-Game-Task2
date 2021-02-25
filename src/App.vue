@@ -1,10 +1,14 @@
 <template>
   <div id="app">
-    <Header />
+    <Header
+      :correctAnswers="correctAnswers"
+      :totalAnswers="totalAnswers"
+    />
     <QuestionArea
       v-if="questions.length"
       :questions="questions[index]"
       :next="next"
+      :addPoints="addPoints"
     />
   </div>
 </template>
@@ -23,12 +27,20 @@ export default {
   data() {
     return {
       questions: [],
-      index: 0
+      index: 0,
+      correctAnswers: 0,
+      totalAnswers: 0
     }
   },
   methods: {
     next() {
       this.index++
+    },
+    addPoints(isCorrect) {
+      if (isCorrect) {
+        this.correctAnswers++
+      }
+      this.totalAnswers++
     }
   },
   mounted: function() {
