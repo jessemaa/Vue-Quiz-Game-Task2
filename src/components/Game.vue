@@ -60,7 +60,7 @@ export default {
 
 <style scoped>
 .question-area {
-    width: 50%;
+    width: 70vw;
     margin: 0 auto;
     padding-top: 50px;
 }
