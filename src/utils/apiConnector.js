@@ -1,4 +1,4 @@
-const QUESTION_URL = "https://opentdb.com/api.php?amount=10&difficulty=easy&type=multiple"
+const QUESTION_URL = "https://opentdb.com/api.php?amount=10&category=15&difficulty=easy&type=multiple"
 
 export const getQuestions = () => {
     return fetch(QUESTION_URL)
