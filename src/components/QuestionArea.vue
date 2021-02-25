@@ -24,11 +24,17 @@
         </md-button>
         <md-button
             @click="next"
-            :disabled="!answered"
+            :disabled="!answered || lastQuestion"
             class="md-raised"
         >
         <font-awesome-icon icon="arrow-circle-right" />&nbsp;Next
         </md-button>
+        <router-link to='/results'><md-button
+            v-if="lastQuestion"
+            class="md-raised"
+        >
+        See Results
+        </md-button></router-link>
     </div>
 </div>
 </template>
@@ -39,14 +45,17 @@ export default {
     props: {
         questions: Object,
         next: Function,
-        addPoints: Function
+        addPoints: Function,
+        lastQuestionIndex: Number
     },
     data() {
         return {
             selectedIndex: null,
             correctIndex: null,
             shuffledAnswers: [],
-            answered: false
+            answered: false,
+            questionNumber: 0,
+            lastQuestion: false
         }
     },
     computed: {
@@ -61,6 +70,7 @@ export default {
             this.selectedIndex = null
             this.answered = false
             this.shuffleAnswers()
+            console.log(this.lastQuestionIndex)
         }
     },
     methods: {
@@ -79,6 +89,10 @@ export default {
             }
             this.answered = true
             this.addPoints(isCorrect)
+            this.questionNumber++
+            if (this.questionNumber === this.lastQuestionIndex + 1) {
+                this.lastQuestion = true
+            }
         }
     },
     mounted() {
@@ -97,5 +111,7 @@ export default {
     .incorrect {
         border: 3px solid rgb(194, 56, 56);
     }
-    
+    a:link {
+    text-decoration: none;
+    }
 </style>

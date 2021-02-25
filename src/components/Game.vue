@@ -10,6 +10,7 @@
             :questions="questions[index]"
             :next="next"
             :addPoints="addPoints"
+            :lastQuestionIndex="lastQuestionIndex"
         />
     </div>
   </div>
@@ -30,12 +31,13 @@ export default {
       questions: [],
       index: 0,
       correctAnswers: 0,
-      totalAnswers: 0
+      totalAnswers: 0,
+      lastQuestionIndex: 0
     }
   },
   methods: {
     next() {
-      this.index++
+        this.index++
     },
     addPoints(isCorrect) {
       if (isCorrect) {
@@ -53,6 +55,7 @@ export default {
     })
       .then((jsonData) => {
         this.questions = jsonData.results
+        this.lastQuestionIndex = this.questions.length - 1
     })
   }
 }
