@@ -1,17 +1,46 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <Header />
+    <QuestionArea
+      v-if="questions.length"
+      :questions="questions[index]"
+      :next="next"
+    />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Header from './components/Header.vue'
+import QuestionArea from './components/QuestionArea.vue'
+
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    Header,
+    QuestionArea
+  },
+  data() {
+    return {
+      questions: [],
+      index: 0
+    }
+  },
+  methods: {
+    next() {
+      this.index++
+    }
+  },
+  mounted: function() {
+    fetch('https://opentdb.com/api.php?amount=10&difficulty=easy&type=multiple', {
+      method: 'get'
+    })
+      .then((response) => {
+        return response.json()
+    })
+      .then((jsonData) => {
+        this.questions = jsonData.results
+    })
   }
 }
 </script>
@@ -22,7 +51,10 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  color: #FFFDF9;
+}
+
+body {
+  background-color: #1A6690;
 }
 </style>
