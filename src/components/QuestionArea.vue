@@ -5,14 +5,29 @@
         v-for="(answer, index) in shuffledAnswers" :key="index"
         @click="selectAnswer(index)"
         class="md-raised md-primary"
-        :class="[selectedIndex === index ? 'selected' : '']"
+        :class="[
+            !answered && selectedIndex === index ? 'selected' :
+            answered && correctIndex === index ? 'correct' :
+            answered && selectedIndex === index && correctIndex !== index ? 'incorrect' : ''
+        ]"
     >
         {{ answer }}
     </md-button>
     <br/>
     <div>
-        <md-button @click="submit" class="md-raised">Submit</md-button>
-        <md-button @click="next" class="md-raised">Next</md-button>
+        <md-button
+            @click="submit"
+            :disabled="selectedIndex === null || answered"
+            class="md-raised"
+        >
+        Submit
+        </md-button>
+        <md-button
+            @click="next"
+            class="md-raised"
+        >
+        Next
+        </md-button>
     </div>
 </div>
 </template>
@@ -28,7 +43,9 @@ export default {
     data() {
         return {
             selectedIndex: null,
-            shuffledAnswers: []
+            correctIndex: null,
+            shuffledAnswers: [],
+            answered: false
         }
     },
     computed: {
@@ -41,6 +58,7 @@ export default {
     watch: {
         questions() {
             this.selectedIndex = null
+            this.answered = false
             this.shuffleAnswers()
         }
     },
@@ -58,6 +76,7 @@ export default {
             if (this.selectedIndex === this.correctIndex) {
                 isCorrect = true
             }
+            this.answered = true
 
             this.addPoints(isCorrect)
         }
@@ -70,6 +89,13 @@ export default {
 
 <style scoped>
     .selected {
-        border: 3px solid rgb(74, 212, 74);
+        border: 3px solid rgb(110, 69, 206);
     }
+    .correct {
+        border: 3px solid rgb(51, 209, 51);
+    }
+    .incorrect {
+        border: 3px solid rgb(194, 56, 56);
+    }
+    
 </style>
