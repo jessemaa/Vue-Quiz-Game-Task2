@@ -1,5 +1,12 @@
 <template>
 <div>
+    <Results
+        v-if="lastQuestion"
+        :correctAnswer="correctAnswer"
+        :selectedAnswer="selectedAnswer"
+        :points="points"
+    />
+    <div v-if="!lastQuestion">
     <h1>{{ questions.question }}</h1>
     <md-button
         v-for="(answer, index) in shuffledAnswers" :key="index"
@@ -37,12 +44,17 @@
         </md-button></router-link>
         
     </div>
+    </div>
 </div>
 </template>
 
 <script>
 import _ from 'lodash'
+import Results from './Results.vue'
 export default {
+    components: {
+        Results
+    },
     props: {
         questions: Object,
         next: Function,
@@ -58,7 +70,8 @@ export default {
             questionNumber: 0,
             lastQuestion: false,
             correctAnswer: [],
-            selectedAnswer: []
+            selectedAnswer: [],
+            points: 0
         }
     },
     computed: {
@@ -97,6 +110,10 @@ export default {
             if (this.questionNumber === this.lastQuestionIndex + 1) {
                 this.lastQuestion = true
             }
+            this.calculatePoints()
+        },
+        calculatePoints() {
+            if (this.correctAnswer[this.questionNumber - 1] === this.selectedAnswer[this.questionNumber -1]) { this.points += 10 }
         }
     },
     mounted() {
