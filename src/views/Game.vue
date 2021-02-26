@@ -17,8 +17,8 @@
 </template>
 
 <script>
-import Header from './Header.vue'
-import QuestionArea from './QuestionArea.vue'
+import Header from '../components/Header.vue'
+import QuestionArea from '../components/QuestionArea.vue'
 
 export default {
   name: 'Game',

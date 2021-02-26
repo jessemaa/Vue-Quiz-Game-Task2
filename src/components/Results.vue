@@ -1,6 +1,6 @@
 <template>
 <div>
-    <h1>{{points}} points</h1>
+    <h1 class="big-header">{{points}} points</h1>
 <div>
     <h1>Here are correct answers</h1>
     <div v-for="(corAnswer, index) in correctAnswer" :key="index+10">
