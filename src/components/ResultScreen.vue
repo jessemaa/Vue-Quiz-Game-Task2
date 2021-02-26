@@ -1,16 +1,15 @@
 <template>
 <div>
-    <Header />
-  <h1>Results</h1>
+    <Results />
   </div>
 </template>
 
 <script>
-import Header from './Header.vue'
+import Results from './Results.vue'
 export default {
   name: 'ResultScreen',
   components: {
-    Header
+    Results
   },
 }
 </script>

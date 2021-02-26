@@ -29,12 +29,13 @@
         >
         <font-awesome-icon icon="arrow-circle-right" />&nbsp;Next
         </md-button>
-        <router-link to='/results'><md-button
+        <router-link :to="{ path: '/results', query: { correctAnswer, selectedAnswer }}"><md-button
             v-if="lastQuestion"
             class="md-raised"
         >
         See Results
         </md-button></router-link>
+        
     </div>
 </div>
 </template>
@@ -55,7 +56,9 @@ export default {
             shuffledAnswers: [],
             answered: false,
             questionNumber: 0,
-            lastQuestion: false
+            lastQuestion: false,
+            correctAnswer: [],
+            selectedAnswer: []
         }
     },
     computed: {
@@ -70,7 +73,6 @@ export default {
             this.selectedIndex = null
             this.answered = false
             this.shuffleAnswers()
-            console.log(this.lastQuestionIndex)
         }
     },
     methods: {
@@ -90,6 +92,8 @@ export default {
             this.answered = true
             this.addPoints(isCorrect)
             this.questionNumber++
+            this.correctAnswer.push(this.shuffledAnswers[this.correctIndex])
+            this.selectedAnswer.push(this.shuffledAnswers[this.selectedIndex])
             if (this.questionNumber === this.lastQuestionIndex + 1) {
                 this.lastQuestion = true
             }
