@@ -34,14 +34,10 @@
             :disabled="!answered || lastQuestion"
             class="md-raised"
         >
-        <font-awesome-icon icon="arrow-circle-right" />&nbsp;Next
+        <font-awesome-icon
+            icon="arrow-circle-right" />
+            &nbsp;Next
         </md-button>
-        <router-link :to="{ path: '/results', query: { correctAnswer, selectedAnswer }}"><md-button
-            v-if="lastQuestion"
-            class="md-raised"
-        >
-        See Results
-        </md-button></router-link>
         
     </div>
     </div>
